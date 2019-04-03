@@ -41,7 +41,7 @@ func findKthLargest(nums []int, k int) int {
 }
 
 func quick_rsort(nums []int) []int {
-	if len(nums) <= 0 {
+	/*if len(nums) <= 0 {
 		return nums
 	}
 	head, tail := 0, len(nums)-1
@@ -58,5 +58,27 @@ func quick_rsort(nums []int) []int {
 	}
 	quick_rsort(nums[:head])
 	quick_rsort(nums[head+1:])
+	return nums*/
+
+	if len(nums) <= 0 {
+		return nums
+	}
+
+	head := 0
+	tail := len(nums) - 1
+	key := nums[0]
+	for i := 1; i <= tail; {
+		if nums[i] < key {
+			nums[i], nums[tail] = nums[tail], nums[i]
+			tail--
+		} else {
+			nums[i], nums[head] = nums[head], nums[i]
+			i++
+			head++
+		}
+	}
+	quick_rsort(nums[0:head])
+	quick_rsort(nums[head+1:])
 	return nums
+
 }

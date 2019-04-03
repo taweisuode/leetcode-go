@@ -33,5 +33,5 @@ func Code1028() {
 */
 
 func maximalSquare(matrix [][]byte) int {
-
+	return 1
 }

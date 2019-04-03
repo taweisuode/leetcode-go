@@ -3,5 +3,5 @@ package main
 import "LeetCode/bytedance"
 
 func main() {
-	bytedance.Code1028()
+	bytedance.Code85()
 }

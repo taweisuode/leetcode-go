@@ -1,4 +1,4 @@
-package LeetCode
+package tencent
 
 import "fmt"
 
@@ -77,9 +77,6 @@ type Stack struct {
 	item []interface{}
 }
 
-func StackEmpty(stack *Stack) bool {
-	return len(stack.item) == 0
-}
 func Stackpush(p interface{}, stack *Stack) {
 	stack.item = append(stack.item, p)
 }
@@ -111,34 +108,9 @@ func InitTree() (head *TreeNode) {
 }
 
 func PrintTree(head *TreeNode) {
-	for _, item := range printTree(head) {
-		fmt.Println(item)
+	if head != nil {
+		PrintTree(head.Left)
+		fmt.Println("head node is", head.Val)
+		PrintTree(head.Right)
 	}
-}
-func printTree(root *TreeNode) [][]int {
-	var res [][]int
-	queue := &Queue{}
-	if root == nil {
-		return res
-	}
-	inQueue(root, queue)
-	for !queueEmpty(queue) {
-		i := len(queue.item)
-		var tempRes []int
-		for i > 0 {
-			currentNode := deQueue(queue)
-			node := currentNode.(*TreeNode)
-			tempRes = append(tempRes, node.Val)
-			if node.Left != nil {
-				inQueue(node.Left, queue)
-			}
-			if node.Right != nil {
-				inQueue(node.Right, queue)
-
-			}
-			i--
-		}
-		res = append(res, tempRes)
-	}
-	return res
 }
