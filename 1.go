@@ -1,6 +1,8 @@
 package LeetCode
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func Code1() {
 	fmt.Println("leetcode 1 ")
