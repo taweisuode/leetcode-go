@@ -66,7 +66,6 @@ func dpRob(nums []int) int {
 				dp[1] = nums[1]
 			}
 
-			//0,n-1
 			for i:=2;i < len(nums);i++ {
 				dp[i] = max(dp[i-2] + nums[i],dp[i-1])
 			}
