@@ -45,4 +45,5 @@ sum(piles) 是奇数。
 */
 func stoneGame(piles []int) bool {
 	return true
+
 }
