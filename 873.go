@@ -49,25 +49,19 @@ func lenLongestFibSubseq(A []int) int {
 
 	//斐波那契数列特性: 一旦确定了前2个数字，则整个斐波那契数列就已经确定了
 	//dp[i][j] 代表 以 i,j 开头的数列长度
-	dp := make([][]int, len(A))
 
-	/*
-		A[0][1] = 1
-		A[4] = 5
-		dp[0,4] = 4
-		A[2] = 3
-		A[k] = A[i] + A[j]
-		dp[i][j] = dp[j][k] + 1
-	*/
-
-	aMap := make(map[int]int, len(A))
-	for temp := 0; temp < len(A); temp++ {
-		dp[temp] = make([]int, len(A))
+	// A[k] = A[i] + A[j]
+	//dp[i][j] = dp[j][k] +1
+	lenA := len(A)
+	dp := make([][]int, lenA)
+	aMap := make(map[int]int)
+	for temp := 0; temp < lenA; temp++ {
+		dp[temp] = make([]int, lenA)
 		aMap[A[temp]] = temp
 	}
 	res := 0
-	for i := len(A) - 1; i >= 0; i-- {
-		for j := i + 1; j < len(A); j++ {
+	for i := lenA - 1; i >= 0; i-- {
+		for j := i + 1; j < lenA; j++ {
 			k := A[i] + A[j]
 			if x, ok := aMap[k]; ok {
 				dp[i][j] = dp[j][x] + 1
@@ -75,10 +69,9 @@ func lenLongestFibSubseq(A []int) int {
 			}
 		}
 	}
-	//fmt.Println(dp)
 	if res > 0 {
 		return res + 2
 	} else {
-		return 0
+		return res
 	}
 }
