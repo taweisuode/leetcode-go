@@ -36,15 +36,15 @@ func Code121() {
 func maxProfit(prices []int) int {
 
 	//dp[i] 表示第i天的最大利润
-	dp := make([]int, len(prices))
+	//dp := make([]int, len(prices))
 	if len(prices) == 0 {
 		return 0
 	}
-	maxV := prices[0]
+	minV := prices[0]
+	maxV := 0
 	for i := 1; i < len(prices); i++ {
-		maxV := max(maxV, prices[i]-maxV)
-		dp[i] = max(dp[i], maxV)
+		minV = min(minV, prices[i])
+		maxV = max(maxV, prices[i]-minV)
 	}
-	fmt.Println(dp)
-	return dp[len(prices)-1]
+	return maxV
 }
