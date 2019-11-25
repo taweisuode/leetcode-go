@@ -24,22 +24,28 @@ func levelOrder(root *TreeNode) [][]int {
 	}
 	inQueue(root, queue)
 	for !queueEmpty(queue) {
-		i := len(queue.item)
-		var tempRes []int
-		for i > 0 {
-			currentNode := deQueue(queue)
-			node := currentNode.(*TreeNode)
-			tempRes = append(tempRes, node.Val)
-			if node.Left != nil {
-				inQueue(node.Left, queue)
-			}
-			if node.Right != nil {
-				inQueue(node.Right, queue)
+		size := len(queue.item)
+
+		var res1 []int
+		for i := size; i > 0; i-- {
+			cur := deQueue(queue)
+			curTree := cur.(*TreeNode)
+			res1 = append(res1, curTree.Val)
+			if curTree.Left != nil {
+				inQueue(curTree.Left, queue)
 
 			}
-			i--
+
+			if curTree.Right != nil {
+				inQueue(curTree.Right, queue)
+			}
+
 		}
-		res = append(res, tempRes)
+		if len(res1) > 0 {
+			res = append(res, res1)
+		}
 	}
+
+	fmt.Println(res)
 	return res
 }

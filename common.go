@@ -68,9 +68,15 @@ func queuePrint(queue *Queue) {
 	if len(queue.item) == 0 {
 		fmt.Println("this queue is empty")
 	}
-	for _, item := range queue.item {
-		fmt.Printf("%d\n", item)
+	fmt.Println("=====queue start")
+	for index, item := range queue.item {
+		if index == len(queue.item)-1 {
+			fmt.Printf("%+v", item)
+		} else {
+			fmt.Printf("%+v <-> ", item)
+		}
 	}
+	fmt.Println("\n=====queue end")
 }
 
 type Stack struct {
