@@ -1,10 +1,8 @@
 package LeetCode
 
-import "fmt"
-
 func Code46() {
-	nums := []int{1, 2, 3}
-	fmt.Println(permute(nums))
+	//nums := []int{1, 2, 3}
+	//fmt.Println(permute(nums))
 }
 
 /**
@@ -25,14 +23,3 @@ func Code46() {
 
 ```
 */
-func permute(nums []int) [][]int {
-	for i := 0; i < len(nums); i++ {
-		for j := 0; j < len(nums); j++ {
-			if i != j {
-				nums[i], nums[j] = nums[j], nums[i]
-			}
-		}
-		permute(nums[i+1:])
-	}
-	return [][]int{}
-}

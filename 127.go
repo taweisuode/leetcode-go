@@ -51,6 +51,7 @@ wordList = ["hot","dot","dog","lot","log"]
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
+//BFS  超时
 func ladderLength(beginWord string, endWord string, wordList []string) int {
 	wordMap := make(map[string]int, 0)
 	for _, item := range wordList {
@@ -61,22 +62,23 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 }
 
 func bfs(search string, endWord string, wordList map[string]int) int {
-	queue := &Queue1{}
-	inQueue1(search, queue)
+	queue := &Queue{}
+	inQueue(search, queue)
 	step := 0
-	for !queueEmpty1(queue) {
+	for !queueEmpty(queue) {
 		step++
 
 		size := len(queue.item)
 
-		for i := 0; i < size; i++ {
-			node := deQueue1(queue)
+		for i := size; i > 0; i-- {
+			nodeInter := deQueue(queue)
+			node := nodeInter.(string)
 			if node == endWord {
 				return step
 			}
 			getArr := findSimilar(node, wordList)
 			for _, item := range getArr {
-				inQueue1(item, queue)
+				inQueue(item, queue)
 			}
 		}
 
@@ -112,20 +114,12 @@ func judgeIsSimilar(str1 string, str2 string) bool {
 	return differentCount == 1
 }
 
-type Queue1 struct {
-	item []string
-}
-
-func inQueue1(p string, queue *Queue1) {
-	queue.item = append(queue.item, p)
-}
-
-func deQueue1(queue *Queue1) string {
-	length := len(queue.item)
-	deleteItem := queue.item[0]
-	queue.item = queue.item[1:length]
-	return deleteItem
-}
-func queueEmpty1(queue *Queue1) bool {
-	return len(queue.item) == 0
+//  dfs
+func ladderLength2(beginWord string, endWord string, wordList []string) int {
+	wordMap := make(map[string]int, 0)
+	for _, item := range wordList {
+		wordMap[item] = 0
+	}
+	res := bfs(beginWord, endWord, wordMap)
+	return res
 }

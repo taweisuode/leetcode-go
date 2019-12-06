@@ -1,10 +1,6 @@
-package LeetCode
+package jianzhi
 
-import (
-	"encoding/json"
-	"fmt"
-	"os"
-)
+import "fmt"
 
 type TreeNode struct {
 	Val   int
@@ -151,19 +147,4 @@ func printTree(root *TreeNode) [][]int {
 		res = append(res, tempRes)
 	}
 	return res
-}
-
-func PrintJson(desc string, data interface{}, signal int) {
-	res, err := json.MarshalIndent(data, "", "\t")
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-	fmt.Println(desc, string(res))
-	switch signal {
-	case 9:
-		os.Exit(1)
-	default:
-		break
-	}
 }

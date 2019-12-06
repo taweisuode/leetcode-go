@@ -3,8 +3,9 @@ package LeetCode
 import "fmt"
 
 func Code234() {
-	l1 := InitSingleList([]int{1, 2, 2, 1})
-	fmt.Println(isPalindrome(l1))
+
+	list := InitSingleList([]int{0, 0})
+	fmt.Println(isPalindrome(list))
 }
 
 /**
@@ -18,16 +19,53 @@ func Code234() {
 
 输入: 1->2->2->1
 输出: true
+进阶：
+你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/palindrome-linked-list
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 */
 
 /**
- * Definition for singly-linked list.
- * type ListNode struct {
+ * Definition for a binary tree node.
+ * type TreeNode struct {
  *     Val int
- *     Next *ListNode
+ *     Left *TreeNode
+ *     Right *TreeNode
  * }
  */
 func isPalindrome(head *ListNode) bool {
-	return false
+	if head == nil || head.Next == nil {
+		return true
+	}
+	pre := &ListNode{}
+	pre.Next = head
+	slow, fast := pre, pre
+
+	fmt.Println(slow, fast)
+	var arr []int
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		arr = append(arr, slow.Val)
+		fast = fast.Next.Next
+	}
+
+	slow = slow.Next
+	for slow != nil {
+		arr = append(arr, slow.Val)
+		slow = slow.Next
+	}
+
+	return isPalindromeList(arr)
+}
+
+func isPalindromeList(arr []int) bool {
+	for index := range arr {
+		if arr[index] != arr[len(arr)-index-1] {
+			return false
+		}
+	}
+	return true
 }

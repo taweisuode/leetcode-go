@@ -1,13 +1,15 @@
 package LeetCode
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func Code200() {
 	grid := [][]byte{
 		{'1', '1', '1', '1', '0'},
-		{'1', '1', '0', '1', '0'},
 		{'1', '1', '0', '0', '0'},
-		{'0', '0', '0', '0', '0'},
+		{'0', '0', '1', '0', '0'},
+		{'0', '0', '0', '1', '1'},
 	}
 	fmt.Println(numIslands(grid))
 }
@@ -39,13 +41,64 @@ func Code200() {
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func numIslands(grid [][]byte) int {
+type NodeStr struct {
+	Val int
+	X   int
+	Y   int
+}
 
+func numIslands(grid [][]byte) int {
+	var dx, dy = []int{-1, 0, 1, 0}, []int{0, 1, 0, -1}
+	count := 0
+	for i := range grid {
+		for j := range grid[i] {
+			if grid[i][j] == '1' {
+				queue := &Queue{}
+				currentNode := &NodeStr{
+					Val: '1',
+					X:   i,
+					Y:   j,
+				}
+				inQueue(currentNode, queue)
+				for !queueEmpty(queue) {
+					popNode := deQueue(queue).(*NodeStr)
+					x := popNode.X
+					y := popNode.Y
+					for k := 0; k < 4; k++ {
+						xx := x + dx[k]
+						yy := y + dy[k]
+
+						//判断上下左右是否为1
+						if xx < 0 || yy < 0 || xx > len(grid)-1 || yy > len(grid[i])-1 {
+							continue
+						}
+						if grid[xx][yy] == '1' {
+							node1 := &NodeStr{
+								Val: '1',
+								X:   xx,
+								Y:   yy,
+							}
+							grid[xx][yy] = '0'
+							inQueue(node1, queue)
+						}
+
+					}
+				}
+				count++
+			}
+
+		}
+	}
+	return count
+}
+
+func getFirst(grid [][]byte) (int, int) {
+	for i := range grid {
+		for j := range grid[i] {
+			if grid[i][j] == 1 {
+				return i, j
+			}
+		}
+	}
+	return -1, -1
 }
