@@ -2,9 +2,18 @@ package LeetCode
 
 import (
 	"fmt"
+	"os"
 )
 
 func Code863() {
+	aaaMap := make(map[string]int)
+	fmt.Println(aaaMap["xsdff"])
+	if _, ok := aaaMap["ewee"]; ok {
+		fmt.Println(23323)
+	} else {
+		fmt.Println(65435)
+	}
+	os.Exit(1)
 	head := InitTree()
 	/*head = &TreeNode{3, nil, nil}
 	head.Left = &TreeNode{5, nil, nil}
@@ -21,8 +30,8 @@ func Code863() {
 	head = &TreeNode{0, nil, nil}
 	head.Left = &TreeNode{2, nil, nil}
 	head.Right = &TreeNode{1, nil, nil}
-	head.Left.Left = &TreeNode{2, nil, nil}
-	target := head.Left.Left
+	head.Right.Left = &TreeNode{3, nil, nil}
+	target := head.Right.Left
 	fmt.Println(distanceK(head, target, 3))
 }
 
@@ -57,6 +66,9 @@ func distanceK(root *TreeNode, target *TreeNode, K int) []int {
 	graph := make(map[*TreeNode][]*TreeNode)
 	graphMap := buildGraph(root, graph)
 	//printMap(graphMap)
+	if K == 0 {
+		return []int{target.Val}
+	}
 	inQueue(target, queue)
 	var count int
 	for !queueEmpty(queue) {
@@ -68,7 +80,7 @@ func distanceK(root *TreeNode, target *TreeNode, K int) []int {
 				break
 			}
 			for _, item := range graphMap[popNode] {
-				if _, ok := nodeMap[item]; !ok && item != target {
+				if item != target && nodeMap[item] != 1 {
 					inQueue(item, queue)
 					nodeMap[popNode] = 1
 					level = append(level, item.Val)
@@ -76,9 +88,10 @@ func distanceK(root *TreeNode, target *TreeNode, K int) []int {
 			}
 		}
 		count++
-		if count == K {
+		fmt.Println(level)
+		/*if count == K {
 			return level
-		}
+		}*/
 	}
 	return nil
 }

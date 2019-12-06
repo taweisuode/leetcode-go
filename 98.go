@@ -59,7 +59,7 @@ func isValidBST(root *TreeNode) bool {
 			return false
 		}
 	}
-	fmt.Println()
+	fmt.Println(res)
 	return true
 }
 
