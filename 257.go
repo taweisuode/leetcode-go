@@ -38,7 +38,7 @@ func Code257() {
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-func binaryTreePaths(root *TreeNode) []string {
+func binaryTreePaths1(root *TreeNode) []string {
 	if root == nil {
 		return nil
 	}
@@ -67,5 +67,24 @@ func binaryTreePaths(root *TreeNode) []string {
 	return nil
 }
 
-func dfs(root *TreeNode, path string, res []string) {
+func binaryTreePaths(root *TreeNode) []string {
+	if root == nil {
+		return nil
+	}
+	var res []string
+	return dfs(root, "", &res)
+}
+func dfs(root *TreeNode, str string, res *[]string) []string {
+	str += strconv.Itoa(root.Val)
+	if root.Left == nil && root.Right == nil {
+		*res = append(*res, str)
+	}
+	str += "->"
+	if root.Left != nil {
+		dfs(root.Left, str, res)
+	}
+	if root.Right != nil {
+		dfs(root.Right, str, res)
+	}
+	return *res
 }
