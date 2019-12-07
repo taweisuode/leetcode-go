@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	tencent.Code1123()
+	tencent.Code896()
 }

@@ -2,17 +2,17 @@ package LeetCode
 
 import "fmt"
 
-func Code94() {
+func Code144() {
 	head := &TreeNode{1, nil, nil}
 	head.Right = &TreeNode{2, nil, nil}
 	head.Right.Left = &TreeNode{3, nil, nil}
-	fmt.Println(inorderTraversal(head))
+	fmt.Println(preorderTraversal(head))
 }
 
 /**
-给定一个二叉树，返回它的中序 遍历。
+给定一个二叉树，返回它的 前序 遍历。
 
-示例:
+ 示例:
 
 输入: [1,null,2,3]
    1
@@ -21,7 +21,12 @@ func Code94() {
     /
    3
 
-输出: [1,3,2]
+输出: [1,2,3]
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-preorder-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 */
 
@@ -32,35 +37,19 @@ func Code94() {
  *     Next *ListNode
  * }
  */
-func inorderTraversal1(root *TreeNode) []int {
-	list := make([]int, 0)
-	inorderTree(root, &list)
-	return list
-}
-func inorderTree(root *TreeNode, list *[]int) []int {
-
-	if root != nil {
-		inorderTree(root.Left, list)
-		*list = append(*list, root.Val)
-		inorderTree(root.Right, list)
-	}
-	return *list
-}
-
-func inorderTraversal(root *TreeNode) []int {
+func preorderTraversal(root *TreeNode) []int {
 	if root == nil {
-		return []int{}
+		return nil
 	}
 	stack := &Stack{}
-
 	var res []int
 	for root != nil || !StackEmpty(stack) {
 		if root != nil {
+			res = append(res, root.Val)
 			Stackpush(root, stack)
 			root = root.Left
 		} else {
 			popNode := Stackpop(stack).(*TreeNode)
-			res = append(res, popNode.Val)
 			root = popNode.Right
 		}
 	}

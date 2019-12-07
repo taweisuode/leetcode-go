@@ -2,6 +2,7 @@ package LeetCode
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func Code257() {
@@ -9,7 +10,7 @@ func Code257() {
 	head = &TreeNode{1, nil, nil}
 	head.Left = &TreeNode{2, nil, nil}
 	head.Right = &TreeNode{3, nil, nil}
-	head.Right.Right = &TreeNode{5, nil, nil}
+	head.Left.Right = &TreeNode{5, nil, nil}
 	fmt.Println(binaryTreePaths(head))
 }
 
@@ -37,12 +38,33 @@ func Code257() {
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-var NodeRes []string
-
 func binaryTreePaths(root *TreeNode) []string {
-	var path string
-	dfs(root, path, NodeRes)
-	return NodeRes
+	if root == nil {
+		return nil
+	}
+	stack := &Stack{}
+	var res []string
+	var eachList string
+	for root != nil || !StackEmpty(stack) {
+		if root != nil {
+			if eachList == "" {
+				eachList = strconv.Itoa(root.Val)
+			} else {
+				eachList += "->" + strconv.Itoa(root.Val)
+			}
+
+			Stackpush(root, stack)
+			root = root.Left
+		} else {
+			popNode := Stackpop(stack).(*TreeNode)
+			if popNode.Left == nil && popNode.Right == nil {
+				res = append(res, eachList)
+			}
+			root = popNode.Right
+		}
+	}
+	fmt.Println(res)
+	return nil
 }
 
 func dfs(root *TreeNode, path string, res []string) {
