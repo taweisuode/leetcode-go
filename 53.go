@@ -30,14 +30,14 @@ func Code53() {
 func maxSubArray(nums []int) int {
 	dp := []int{0}
 	dp[0] = nums[0]
-	for key, _ := range nums {
+	for key := range nums {
 		if key > 0 {
 			dp = append(dp, max(nums[key], dp[key-1]+nums[key]))
 		}
 	}
 	temp := dp[0]
 
-	for k, _ := range dp {
+	for k := range dp {
 		if k > 0 {
 			temp = max(dp[k], temp)
 		}
