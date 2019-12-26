@@ -39,51 +39,53 @@ func exist(board [][]byte, word string) bool {
 	if len(board) == 0 {
 		return false
 	}
-	boardMapI := make(map[int]int, len(board))
-	boardMapJ := make(map[int]int, len(board[0]))
+	boardMap := make([][]int, len(board))
+	for i := range board {
+		boardMap[i] = make([]int, len(board[i]))
+	}
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[i]); j++ {
-			boardMapI[i] = 0
-			boardMapJ[j] = 0
-		}
-	}
-
-	fmt.Println(boardMapI, boardMapJ)
-	for i := 0; i < len(word); i++ {
-		getNearNode(board, 'A', boardMapI, boardMapJ)
-	}
-	return false
-}
-
-func getNearNode(board [][]byte, node byte, boardMapI map[int]int, boardMapJ map[int]int) [][]byte {
-	res := [][]byte{}
-	for i := 0; i < len(board); i++ {
-		for j := 0; j < len(board[i]); j++ {
-			if board[i][j] == node {
-
-				//上边
-				if i > 0 && boardMapI[i] != 1 {
-					res = append(res, []byte{board[i-1][j]})
-				}
-
-				//左边
-				if j > 0 && boardMapJ[j] != 1 {
-					res = append(res, []byte{board[i][j-1]})
-				}
-
-				//下边
-				if i < len(board)-1 && boardMapI[i] != 1 {
-					fmt.Println(i)
-					res = append(res, []byte{board[i+1][j]})
-				}
-
-				//右边
-				if j < len(board[0])-1 && boardMapJ[j] != 1 {
-					res = append(res, []byte{board[i][j+1]})
+			//判断第一个word 的出现位置
+			if board[i][j] == word[0] {
+				boardMap[i][j] = 1
+				res := dfs_7(board, i, j, word[1:], boardMap)
+				if res {
+					return true
+				} else {
+					boardMap[i][j] = 0
 				}
 			}
 		}
 	}
-	fmt.Println(res)
-	return nil
+	return false
+}
+
+func dfs_7(board [][]byte, x int, y int, word string, boardMap [][]int) bool {
+	//单词搜索完毕 返回true
+	if word == "" {
+		return true
+	}
+	direction := [][]int{
+		{-1, 0},
+		{0, 1},
+		{1, 0},
+		{0, -1},
+	}
+	for key := range direction {
+		nextX := x + direction[key][0]
+		nextY := y + direction[key][1]
+
+		if nextX >= 0 && nextX < len(board) && nextY >= 0 && nextY < len(board[0]) {
+			if boardMap[nextX][nextY] == 0 && word[0] == board[nextX][nextY] {
+				boardMap[nextX][nextY] = 1
+				if dfs_7(board, nextX, nextY, word[1:], boardMap) {
+					return true
+				} else {
+					boardMap[nextX][nextY] = 0
+					continue
+				}
+			}
+		}
+	}
+	return false
 }
