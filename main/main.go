@@ -4,5 +4,5 @@ import "LeetCode"
 
 func main() {
 
-	LeetCode.Code39()
+	LeetCode.Code77()
 }
