@@ -29,13 +29,6 @@ func Code1042() {
 ```
 */
 
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
 func maxProfit(prices []int) int {
 	res := 0
 	if len(prices) == 0 {

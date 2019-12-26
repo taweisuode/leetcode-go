@@ -30,6 +30,12 @@ func Code5() {
  *     Next *ListNode
  * }
  */
+/**
+ *  @desc:  function description
+ *  @input: int data
+ *  @resp:  interface resp
+ *
+**/
 func longestPalindrome(s string) string {
 	if s == "" {
 		return ""

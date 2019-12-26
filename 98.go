@@ -4,9 +4,11 @@ import "fmt"
 
 func Code98() {
 	head := InitTree()
-	head = &TreeNode{0, nil, nil}
-	//head.Left = &TreeNode{1, nil, nil}
-	//head.Right = &TreeNode{3, nil, nil}
+	head = &TreeNode{5, nil, nil}
+	head.Left = &TreeNode{1, nil, nil}
+	head.Right = &TreeNode{4, nil, nil}
+	head.Right.Left = &TreeNode{3, nil, nil}
+	head.Right.Right = &TreeNode{6, nil, nil}
 	fmt.Println(isValidBST(head))
 }
 
@@ -47,27 +49,55 @@ func Code98() {
  *     Right *TreeNode
  * }
  */
-var res []int
 
-func isValidBST(root *TreeNode) bool {
-	if root == nil || (root != nil && root.Left == nil && root.Right == nil) {
-		return true
-	}
-	res = inOrder(root)
+func isValidBST1(root *TreeNode) bool {
+
+	var list []int
+	res := inOrder(root, &list)
 	for i := 1; i < len(res); i++ {
 		if res[i] <= res[i-1] {
 			return false
 		}
 	}
-	fmt.Println()
+	fmt.Println(res)
 	return true
 }
 
-func inOrder(root *TreeNode) []int {
+func inOrder(root *TreeNode, res *[]int) []int {
 	if root != nil {
-		inOrder(root.Left)
-		res = append(res, root.Val)
-		inOrder(root.Right)
+		inOrder(root.Left, res)
+		*res = append(*res, root.Val)
+		inOrder(root.Right, res)
+	}
+	return *res
+}
+
+func isValidBST(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	res := inOrderBst(root)
+	for i := 1; i < len(res); i++ {
+		if res[i] <= res[i-1] {
+			return false
+		}
+	}
+	fmt.Println(res)
+	return true
+}
+
+func inOrderBst(root *TreeNode) []int {
+	stack := &Stack{}
+	var res []int
+	for root != nil || !StackEmpty(stack) {
+		if root != nil {
+			Stackpush(root, stack)
+			root = root.Left
+		} else {
+			popNode := Stackpop(stack).(*TreeNode)
+			res = append(res, popNode.Val)
+			root = popNode.Right
+		}
 	}
 	return res
 }

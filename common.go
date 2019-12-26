@@ -1,6 +1,10 @@
 package LeetCode
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
 
 type TreeNode struct {
 	Val   int
@@ -68,9 +72,15 @@ func queuePrint(queue *Queue) {
 	if len(queue.item) == 0 {
 		fmt.Println("this queue is empty")
 	}
-	for _, item := range queue.item {
-		fmt.Printf("%d\n", item)
+	fmt.Println("=====queue start")
+	for index, item := range queue.item {
+		if index == len(queue.item)-1 {
+			fmt.Printf("%+v", item)
+		} else {
+			fmt.Printf("%+v <-> ", item)
+		}
 	}
+	fmt.Println("\n=====queue end")
 }
 
 type Stack struct {
@@ -141,4 +151,19 @@ func printTree(root *TreeNode) [][]int {
 		res = append(res, tempRes)
 	}
 	return res
+}
+
+func PrintJson(desc string, data interface{}, signal int) {
+	res, err := json.MarshalIndent(data, "", "\t")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(desc, string(res))
+	switch signal {
+	case 9:
+		os.Exit(1)
+	default:
+		break
+	}
 }

@@ -36,12 +36,12 @@ func isSymmetric(root *TreeNode) bool {
 	return isMirror(root, root)
 }
 
-func isMirror(tree1 *TreeNode, tree2 *TreeNode) bool {
-	if tree1 == nil && tree2 == nil {
+func isMirror(node1 *TreeNode, node2 *TreeNode) bool {
+	if node1 == nil && node2 == nil {
 		return true
 	}
-	if tree1 == nil || tree2 == nil {
+	if node1 == nil || node2 == nil {
 		return false
 	}
-	return tree1.Val == tree2.Val && isMirror(tree1.Left, tree2.Right) && isMirror(tree1.Right, tree2.Left)
+	return node1.Val == node2.Val && isMirror(node1.Left, node2.Right) && isMirror(node1.Left, node2.Right)
 }

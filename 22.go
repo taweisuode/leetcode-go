@@ -28,11 +28,25 @@ func Code22() {
  * }
  */
 func generateParenthesis(n int) []string {
-	//获取所有的组合
-	getFullData(n)
-	return []string{}
+	var res []string
+	left, right := n, n
+	dfs_22(n, left, right, &res, "")
+	return res
 }
 
-func getFullData(n int) {
+func dfs_22(n int, left int, right int, res *[]string, str string) {
+	if left == 0 && right == 0 {
+		*res = append(*res, str)
+		return
+	}
 
+	//左边还有剩余时
+	if left > 0 {
+		dfs_22(n, left-1, right, res, str+"(")
+	}
+
+	//右边有剩余并且 左边剩余比右边少
+	if right > 0 && left < right {
+		dfs_22(n, left, right-1, res, str+")")
+	}
 }

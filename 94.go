@@ -3,8 +3,10 @@ package LeetCode
 import "fmt"
 
 func Code94() {
-	tree1 := InitTree()
-	fmt.Println(inorderTraversal(tree1))
+	head := &TreeNode{1, nil, nil}
+	head.Right = &TreeNode{2, nil, nil}
+	head.Right.Left = &TreeNode{3, nil, nil}
+	fmt.Println(inorderTraversal(head))
 }
 
 /**
@@ -30,17 +32,37 @@ func Code94() {
  *     Next *ListNode
  * }
  */
-func inorderTraversal(root *TreeNode) []int {
-	list := make([]int, 100)
-	fmt.Println(inorderTree(root, list))
+func inorderTraversal1(root *TreeNode) []int {
+	list := make([]int, 0)
+	inorderTree(root, &list)
 	return list
 }
-func inorderTree(root *TreeNode, list []int) []int {
+func inorderTree(root *TreeNode, list *[]int) []int {
 
 	if root != nil {
 		inorderTree(root.Left, list)
-		list = append(list, root.Val)
+		*list = append(*list, root.Val)
 		inorderTree(root.Right, list)
 	}
-	return list
+	return *list
+}
+
+func inorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+	stack := &Stack{}
+
+	var res []int
+	for root != nil || !StackEmpty(stack) {
+		if root != nil {
+			Stackpush(root, stack)
+			root = root.Left
+		} else {
+			popNode := Stackpop(stack).(*TreeNode)
+			res = append(res, popNode.Val)
+			root = popNode.Right
+		}
+	}
+	return res
 }

@@ -1,10 +1,12 @@
 package LeetCode
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func Code1() {
 	fmt.Println("leetcode 1 ")
-	nums := []int{2, 3, 4, 6, 8}
+	nums := []int{3, 2, 4}
 	target := 8
 	fmt.Println(twoSum(nums, target))
 }
@@ -20,10 +22,9 @@ func Code1() {
 ```
 */
 func twoSum(nums []int, target int) []int {
-	fmt.Println(111)
 	for i := 0; i < len(nums); i++ {
 		for j := i + 1; j < len(nums); j++ {
-			if nums[i] == target-nums[j] {
+			if nums[i]+nums[j] == target {
 				return []int{i, j}
 			}
 		}

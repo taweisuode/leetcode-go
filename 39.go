@@ -1,10 +1,13 @@
 package LeetCode
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func Code39() {
-	candidates := []int{2, 3, 6, 7}
-	target := 7
+	candidates := []int{2, 3, 5}
+	target := 8
 	fmt.Println(combinationSum(candidates, target))
 }
 
@@ -38,5 +41,23 @@ candidates 中的数字可以无限制重复被选取。
 ```
 */
 func combinationSum(candidates []int, target int) [][]int {
-	return nil
+	sort.Ints(candidates)
+	res := make([][]int, 0)
+
+	dfs_39(candidates, target, 0, []int{}, &res)
+	return res
+}
+
+func dfs_39(candidates []int, target int, index int, combine []int, res *[][]int) {
+	if target < 0 {
+		return
+	}
+	if target == 0 {
+		*res = append(*res, combine)
+		return
+	}
+	for i := index; i < len(candidates); i++ {
+		dfs_39(candidates, target-candidates[i], i, append([]int{candidates[i]}, combine...), res)
+	}
+
 }
