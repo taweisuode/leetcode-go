@@ -69,12 +69,12 @@ func dfs_40(candidates []int, index int, target int, combine []int, res *[][]int
 		}
 
 		combine = append(combine, candidates[i])
-		dfs_40(candidates, i+1, target-candidates[i], combine, res)
+		dfs_40(candidates[1:], i, target-candidates[i], combine, res)
 		combine = combine[:len(combine)-1]
 	}
 }
 
-func combinationSum3(candidates []int, target int) [][]int {
+func combinationSum4(candidates []int, target int) [][]int {
 	res := [][]int{}
 	sort.Ints(candidates)
 	helper(candidates, 0, 0, target, []int{}, &res)

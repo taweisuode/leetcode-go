@@ -51,7 +51,7 @@ func Code1290() {
 链接：https://leetcode-cn.com/problems/convert-binary-number-in-a-linked-list-to-integer
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
-func getDecimalValue(head *ListNode) int {
+func getDecimalValue1(head *ListNode) int {
 	n := 0
 	for head != nil {
 		n = n<<1 + head.Val
