@@ -57,7 +57,9 @@ func dfs_40(candidates []int, index int, target int, combine []int, res *[][]int
 		return
 	}
 	if target == 0 {
-		*res = append(*res, combine)
+		t := make([]int, len(combine))
+		copy(t, combine)
+		*res = append(*res, t)
 		return
 	}
 
@@ -66,7 +68,9 @@ func dfs_40(candidates []int, index int, target int, combine []int, res *[][]int
 			continue
 		}
 
-		dfs_40(candidates, i+1, target-candidates[i], append([]int{candidates[i]}, combine...), res)
+		combine = append(combine, candidates[i])
+		dfs_40(candidates, i+1, target-candidates[i], combine, res)
+		combine = combine[:len(combine)-1]
 	}
 }
 

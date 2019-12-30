@@ -53,11 +53,16 @@ func dfs_39(candidates []int, target int, index int, combine []int, res *[][]int
 		return
 	}
 	if target == 0 {
-		*res = append(*res, combine)
+		fmt.Println(combine)
+		t := make([]int, len(combine))
+		copy(t, combine)
+		*res = append(*res, t)
 		return
 	}
 	for i := index; i < len(candidates); i++ {
-		dfs_39(candidates, target-candidates[i], i, append([]int{candidates[i]}, combine...), res)
+		combine = append(combine, candidates[i])
+		dfs_39(candidates, target-candidates[i], i, combine, res)
+		combine = combine[:len(combine)-1]
 	}
 
 }
