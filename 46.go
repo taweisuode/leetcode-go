@@ -1,8 +1,10 @@
 package LeetCode
 
+import "fmt"
+
 func Code46() {
-	//nums := []int{1, 2, 3}
-	//fmt.Println(permute(nums))
+	nums := []int{1, 2, 3}
+	fmt.Println(permute(nums))
 }
 
 /**
@@ -23,3 +25,38 @@ func Code46() {
 
 ```
 */
+
+func permute(nums []int) [][]int {
+
+	var res [][]int
+
+	dfs_46(nums, []int{}, &res)
+	return res
+}
+
+func dfs_46(nums []int, combine []int, res *[][]int) {
+	if len(combine) == len(nums) {
+		t := make([]int, len(combine))
+		copy(t, combine)
+		*res = append(*res, t)
+		return
+	}
+
+	for i := 0; i < len(nums); i++ {
+		if notIn(nums[i], combine) {
+			combine = append(combine, nums[i])
+			dfs_46(nums, combine, res)
+			combine = combine[:len(combine)-1]
+		}
+	}
+}
+
+func notIn(num int, combine []int) bool {
+	for i := range combine {
+		if combine[i] == num {
+			return false
+		}
+	}
+	return true
+
+}

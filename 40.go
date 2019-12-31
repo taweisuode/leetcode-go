@@ -74,7 +74,7 @@ func dfs_40(candidates []int, index int, target int, combine []int, res *[][]int
 	}
 }
 
-func combinationSum4(candidates []int, target int) [][]int {
+func combinationSum1(candidates []int, target int) [][]int {
 	res := [][]int{}
 	sort.Ints(candidates)
 	helper(candidates, 0, 0, target, []int{}, &res)
