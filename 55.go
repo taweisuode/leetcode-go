@@ -31,6 +31,11 @@ func Code55() {
 */
 
 func canJump(nums []int) bool {
+
+	aaa := []int{1, 2, 3, 4}
+	for i := range aaa {
+		fmt.Println(aaa[i])
+	}
 	k := 0
 	for i := 0; i < len(nums); i++ {
 		if i > k {
