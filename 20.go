@@ -1,6 +1,10 @@
 package LeetCode
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
 func Code20() {
 	s := "()[]{}"
@@ -50,6 +54,17 @@ func Code20() {
  * }
  */
 func isValid(s string) bool {
+	s1 := "hello zhuang jing peng"
+
+	arr := strings.Split(s1, " ")
+	res := ""
+	for _, item := range arr {
+		res += RR(item) + " "
+		//res = RR(item) + " "
+	}
+	res = RR(res)
+	fmt.Println(res)
+	os.Exit(1)
 	stackMap := map[byte]byte{
 		'}': '{',
 		')': '(',
@@ -79,4 +94,16 @@ func isValid(s string) bool {
 	fmt.Println("after")
 	stackPrint(stack)
 	return StackEmpty(stack)
+}
+
+func RR(s string) string {
+	runes := []rune(s)
+
+	for start, end := 0, len(runes)-1; start < end; {
+		runes[start], runes[end] = runes[end], runes[start]
+		start++
+		end--
+	}
+
+	return string(runes)
 }

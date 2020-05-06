@@ -5,8 +5,10 @@ import (
 )
 
 func Code78() {
-	nums := []int{1, 2, 3}
-	fmt.Println(subsets1(nums))
+	//nums := []int{1, 2, 3}
+
+	str := "abcd"
+	fmt.Println(subsets2(str))
 }
 
 /**
@@ -34,6 +36,22 @@ func Code78() {
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
+func subsets2(str string) []string {
+	var res []string
+	dfs_78_2(str, 0, "", &res)
+	return res
+}
+func dfs_78_2(str string, index int, next string, res *[]string) {
+	if len(next) >= 2 {
+		*res = append(*res, next)
+	}
+	for i := index; i < len(str); i++ {
+		//这里要用 i+ 1 用来防止重复使用
+		next = str[:i]
+		dfs_78_2(str, i+1, next, res)
+		str = str[:i]
+	}
+}
 func subsets(nums []int) [][]int {
 
 	var res [][]int

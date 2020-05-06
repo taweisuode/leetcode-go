@@ -34,38 +34,5 @@ func Code91() {
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 func numDecodings(s string) int {
-	//dp[i] 表示s长度 时候的总数
-
-	lenS := len(s)
-	dp := make([]int, lenS+1)
-	dp[0], dp[1] = 1, one(s[0:1])
-	for i := 2; i <= lenS; i++ {
-		w1, w2 := one(s[i-1:i]), two(s[i-2:i])
-		dp[i] = dp[i-1]*w1 + dp[i-2]*w2
-		if dp[i] == 0 {
-			return 0
-		}
-	}
-	fmt.Println(dp)
-	return dp[lenS]
-}
-
-func one(s string) int {
-	if s == "0" {
-		return 0
-	}
 	return 1
-}
-
-func two(s string) int {
-	if s[0] == '0' {
-		return 0
-	}
-	if s[0] == '1' {
-		return 1
-	}
-	if s[0] == '2' && s[1] <= '6' {
-		return 1
-	}
-	return 0
 }

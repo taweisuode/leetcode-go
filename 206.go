@@ -1,6 +1,9 @@
 package LeetCode
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+)
 
 func Code206() {
 	l1 := InitSingleList([]int{1, 2, 3, 4, 5})
@@ -25,13 +28,28 @@ func Code206() {
  * }
  */
 func reverseList(head *ListNode) *ListNode {
-	pre := head
-	p, q := head, head
-	for p.Next != nil {
-		q = p.Next
-		p.Next = q.Next
-		q.Next = pre
-		pre = q
+	path := []byte("AAAA/BBBB")
+	sepIndex := bytes.IndexByte(path, '/')
+	dir1 := path[:sepIndex]
+	dir2 := path[sepIndex+1:]
+	fmt.Println(string(dir1), dir2)
+	dir1 = append(dir1, "suffex"...)
+	path = bytes.Join([][]byte{dir1, dir2}, []byte{'/'})
+	fmt.Println(111, string(dir1), string(dir2))
+	fmt.Println(222, string(path))
+	fmt.Println(dir1)
+	a := []int{1, 2}
+	b := []int{3, 4}
+	check := a
+	a = b
+	fmt.Println(a, b, check)
+	if head == nil {
+		return nil
+	}
+	var pre *ListNode
+	p := head
+	for p != nil {
+		pre, p, p.Next = p, p.Next, pre
 
 	}
 	return pre

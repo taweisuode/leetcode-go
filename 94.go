@@ -52,16 +52,15 @@ func inorderTraversal(root *TreeNode) []int {
 		return []int{}
 	}
 	stack := &Stack{}
-
 	var res []int
-	for root != nil || !StackEmpty(stack) {
+	for !StackEmpty(stack) || root != nil {
 		if root != nil {
 			Stackpush(root, stack)
 			root = root.Left
 		} else {
-			popNode := Stackpop(stack).(*TreeNode)
-			res = append(res, popNode.Val)
-			root = popNode.Right
+			node := Stackpop(stack).(*TreeNode)
+			res = append(res, node.Val)
+			root = node.Right
 		}
 	}
 	return res

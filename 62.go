@@ -6,7 +6,7 @@ import (
 )
 
 func Code62() {
-	fmt.Println(uniquePaths2(7, 3))
+	fmt.Println(uniquePaths(7, 3))
 }
 
 /**

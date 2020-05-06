@@ -19,33 +19,22 @@ func Code102() {
 func levelOrder(root *TreeNode) [][]int {
 	var res [][]int
 	queue := &Queue{}
-	if root == nil {
-		return res
-	}
 	inQueue(root, queue)
 	for !queueEmpty(queue) {
-		size := len(queue.item)
+		len := len(queue.item)
 
 		var res1 []int
-		for i := size; i > 0; i-- {
-			cur := deQueue(queue)
-			curTree := cur.(*TreeNode)
-			res1 = append(res1, curTree.Val)
-			if curTree.Left != nil {
-				inQueue(curTree.Left, queue)
-
+		for i := 0; i < len; i++ {
+			popNode := deQueue(queue).(*TreeNode)
+			res1 = append(res1, popNode.Val)
+			if popNode.Left != nil {
+				inQueue(popNode.Left, queue)
 			}
-
-			if curTree.Right != nil {
-				inQueue(curTree.Right, queue)
+			if popNode.Right != nil {
+				inQueue(popNode.Right, queue)
 			}
-
 		}
-		if len(res1) > 0 {
-			res = append(res, res1)
-		}
+		res = append(res, res1)
 	}
-
-	fmt.Println(res)
 	return res
 }

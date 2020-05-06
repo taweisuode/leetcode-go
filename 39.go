@@ -53,6 +53,24 @@ func dfs_39(candidates []int, target int, index int, combine []int, res *[][]int
 		return
 	}
 	if target == 0 {
+		t := make([]int, len(combine))
+		copy(t, combine)
+		*res = append(*res, t)
+	}
+
+	for i := index; i < len(candidates); i++ {
+		combine = append(combine, candidates[i])
+		dfs_39(candidates, target-candidates[i], i, combine, res)
+		combine = combine[:len(combine)-1]
+	}
+}
+
+/*
+func dfs_39(candidates []int, target int, index int, combine []int, res *[][]int) {
+	if target < 0 {
+		return
+	}
+	if target == 0 {
 		fmt.Println(combine)
 		t := make([]int, len(combine))
 		copy(t, combine)
@@ -66,3 +84,4 @@ func dfs_39(candidates []int, target int, index int, combine []int, res *[][]int
 	}
 
 }
+*/

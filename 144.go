@@ -39,14 +39,14 @@ func Code144() {
  */
 func preorderTraversal(root *TreeNode) []int {
 	if root == nil {
-		return nil
+		return []int{}
 	}
-	stack := &Stack{}
 	var res []int
-	for root != nil || !StackEmpty(stack) {
+	stack := &Stack{}
+	for !StackEmpty(stack) || root != nil {
 		if root != nil {
-			res = append(res, root.Val)
 			Stackpush(root, stack)
+			res = append(res, root.Val)
 			root = root.Left
 		} else {
 			popNode := Stackpop(stack).(*TreeNode)
